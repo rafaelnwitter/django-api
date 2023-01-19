@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework import permissions
 from rest_framework.filters import OrderingFilter, SearchFilter
 
 from .serializers import RoomSerializer
@@ -33,6 +34,7 @@ class RoomsViewSet(viewsets.ModelViewSet):
         "price",
     )
     filterset_fields = ["pet_friendly", "beds", "bedrooms", "bathrooms"]
+    permission_classes = [permissions.IsAuthenticated]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
