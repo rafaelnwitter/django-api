@@ -2,6 +2,12 @@
 from rest_framework import serializers
 from .models import MyUser
 
+class UserSerializer(serializers.HyperlinkedIdentityField):
+    model = MyUser
+    fields = ('email',)
+    exclude_fields = ('password',)
+    depth = 1
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)

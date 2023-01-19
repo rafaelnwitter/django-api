@@ -4,7 +4,7 @@ from users.models import MyUser
 
 
 class Rooms(models.Model):
-    owner = models.ForeignKey(MyUser, on_delete=models.PROTECT)
+    owner = models.ForeignKey(MyUser, on_delete=models.PROTECT, null=True)
     guest_limity = models.PositiveIntegerField(null=False, blank=False)
     bedrooms = models.PositiveIntegerField(verbose_name="Bedrooms Avaliable", default=1)
     beds = models.PositiveIntegerField(verbose_name="Beds Avaliable", default=1)
@@ -22,3 +22,5 @@ class Rooms(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+    

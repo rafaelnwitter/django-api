@@ -1,14 +1,34 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from rest_framework import status
+from django.http import Http404, HttpResponse
+from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import  Response
 from rest_framework.views import APIView
 from .utils import get_tokens_for_user
-from .serializers import RegistrationSerializer, PasswordChangeSerializer
+from .serializers import RegistrationSerializer, PasswordChangeSerializer, UserSerializer
 # Create your views here.
+
+class UserListViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return super().get_queryset()
+    
+    def retrieve(self, request, *args, **kwargs):
+        user_id = self.request.user
+        room = self.get_queryset().filter(email=user_id)
+
+        if not room:
+            raise Http404
+
+        instance = self.get_object()
+
+        kwargs_serializer = {"context": self.get_serializer_context()}
+        serializer = UserListSerializer(instance, **kwargs_serializer)
+        return Response(serializer.data)
 
 
 class RegistrationView(APIView):
