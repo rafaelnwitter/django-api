@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from property.models import Properties
+from property.models import Rooms
 
 
-class PropertySerializer(serializers.ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Properties
+        model = Rooms
         fields = '__all__'

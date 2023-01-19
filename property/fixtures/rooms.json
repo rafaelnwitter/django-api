@@ -1,0 +1,17 @@
+{
+  {
+    "pk": 1,
+    "model": "property.rooms",
+    "fields": {
+        "guest_limity": 1,
+        "bedrooms": 2,
+        "beds": 5,
+        "bathrooms": 2,
+        "pet_friendly": "true",
+        "price": 252,
+        "cleaning_fee": 100,
+        "created_date": "2013-01-16T08:16:59.844Z",
+        "updated_date": "2013-01-16T08:16:59.844Z"
+    }
+  }
+}

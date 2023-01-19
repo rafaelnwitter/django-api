@@ -1,12 +1,22 @@
-from django.urls import include, path
+from django.urls import path
+from .views import RoomDetailViewSet, RoomsViewSet
+from property import views
 
-from rest_framework import routers
+_READY_ONLY = {"get": "list"}
 
-from .views import PropertiesViewSet
+_LIST = {"get": "list", "post": "create"}
 
-router = routers.DefaultRouter()
-router.register(r'', PropertiesViewSet)
+_DETAIL = {
+    "get": "retrieve",
+    "put": "update",
+    "patch": "partial_update",
+    "delete": "destroy",
+}
+
+_ONLY_DELETE = {"delete": "destroy"}
+
 
 urlpatterns = [
-   path('', include(router.urls)),
+    path('', RoomsViewSet.as_view(_LIST), name="rooms"),
+    path("<str:pk>", RoomsViewSet.as_view(_DETAIL), name="rooms-detail"),
 ]
