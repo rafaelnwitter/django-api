@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import RoomDetailViewSet, RoomsViewSet
-from property import views
+from .views import RoomsViewSet
 
 _READY_ONLY = {"get": "list"}
 

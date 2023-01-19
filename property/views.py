@@ -144,36 +144,3 @@ def rooms_detail(request, pk):
             {"message": "Room was deleted successfully!"},
             status=status.HTTP_204_NO_CONTENT,
         )
-
-
-class RoomDetailViewSet(viewsets.ModelViewSet):
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    ordering_fields = (
-        "created_date",
-        "price",
-    )
-
-    def room_detail(self, request, pk):
-        """
-        Retrieve, update or delete a code snippet.
-        """
-        try:
-            room = Rooms.objects.get(pk=pk)
-        except Rooms.DoesNotExist:
-            return HttpResponse(status=404)
-
-        if request.method == "GET":
-            serializer = RoomSerializer(room)
-            return JsonResponse(serializer.data)
-
-        elif request.method == "PUT":
-            data = JSONParser().parse(request)
-            serializer = RoomSerializer(room, data=data)
-            if serializer.is_valid():
-                serializer.save()
-                return JsonResponse(serializer.data)
-            return JsonResponse(serializer.errors, status=400)
-
-        elif request.method == "DELETE":
-            room.delete()
-            return HttpResponse(status=204)
