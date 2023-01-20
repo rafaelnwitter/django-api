@@ -82,7 +82,8 @@ class RoomsViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         room_id = self.kwargs.get("pk")
         room = self.get_queryset().filter(id=room_id)
-
+        user_email = self.request.user
+        print(user_email)
         if not room:
             raise Http404
 
@@ -90,4 +91,7 @@ class RoomsViewSet(viewsets.ModelViewSet):
 
         kwargs_serializer = {"context": self.get_serializer_context()}
         serializer = RoomSerializer(instance, **kwargs_serializer)
+        print(kwargs_serializer)
+        print("OIIIII")
+       # print(**kwargs_serializer)
         return Response(serializer.data)

@@ -5,8 +5,8 @@ from users.serializers import *
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    owner = UserSerializer
+    owner = UserSerializer()
     class Meta:
         model = Rooms
         fields = '__all__'
-        depth = 2
+
